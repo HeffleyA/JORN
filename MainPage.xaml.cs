@@ -1,7 +1,6 @@
-﻿//using Microsoft.UI.Xaml.Media.Imaging;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-//using Windows.System;
+using Mscc.GenerativeAI;
 
 namespace JORN
 {
@@ -12,45 +11,54 @@ namespace JORN
         public MainPage()
         {
             InitializeComponent();
-
-            //ImagePaint paint = new ImagePaint();
-            //paint.Image = new BitmapImage(new Uri(""))
         }
     }
 
-    class ClockViewModel : INotifyPropertyChanged
+    class ChatModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private DateTime _dateTime;
-        private Timer _timer;
+        private string outputText;
 
-        public DateTime DateTime
+        public string OutputText
         {
-            get => _dateTime;
+            get => outputText;
             set
             {
-                if (_dateTime != value)
+                if (outputText != value)
                 {
-                    _dateTime = value;
+                    outputText = value;
                     OnPropertyChanged(); // reports this property
                 }
             }
         }
 
-        public ClockViewModel()
+        public ChatModel()
         {
-            this.DateTime = DateTime.Now;
+            OutputText = "";
 
-            // Update the DateTime property every second.
-            _timer = new Timer(new TimerCallback((s) => this.DateTime = DateTime.Now),
-                               null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+            //establish api as connection
         }
-
-        ~ClockViewModel() =>
-            _timer.Dispose();
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        public async Task<string> GenerateResponse(string prompt)
+        {
+            var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";
+            
+            var googleAI = new GoogleAI(apiKey: apiKey);
+            var model = googleAI.GenerativeModel(model: Model.Gemini25Flash);
+
+            var response = await model.GenerateContent(prompt);
+            return response.Text;
+        }
+
+        public async Task<string> AskAndReply(string prompt)
+        {
+            prompt = $"Reply as if you are a JORN named JORN. JORN is love, JORN is life.\n\n{prompt}";
+
+            return await GenerateResponse(prompt);
+        }
     }
 }
