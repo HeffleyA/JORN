@@ -6,13 +6,18 @@
              Title="JORNPage"
              x:DataType="local:ChatModel">
 
-    <ContentPage.BindingContext>
-        <local:ChatModel />
-    </ContentPage.BindingContext>
+    <Grid>
+        <Image Source="jorn.png"
+               Aspect="AspectFill"
+               Opacity="0.3" />
+        <!-- Optional opacity -->
 
-    <!--<Label Text="{Binding DateTime, StringFormat='{0:T}'}"
-           FontSize="18"
-           HorizontalOptions="Center"
-           VerticalOptions="Center" />-->
+        <!-- Your page content here -->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Hello, World!"
+                   FontSize="32"
+                   TextColor="White" />
+        </StackLayout>
+    </Grid>
 
 </ContentPage>
