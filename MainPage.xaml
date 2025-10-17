@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:JORN"
-             x:Class="JORN.MainPage"
-             Title="ClockPage"
-             x:DataType="local:ClockViewModel">
+             x:Class="JORN.MainPage">
 
-    <ContentPage.BindingContext>
-        <local:ClockViewModel />
-    </ContentPage.BindingContext>
+    <Grid>
+        <Image Source="jorn.png"
+               Aspect="AspectFill"
+               Opacity="0.3" />
+        <!-- Optional opacity -->
 
-    <Label Text="{Binding DateTime, StringFormat='{0:T}'}"
-           FontSize="18"
-           HorizontalOptions="Center"
-           VerticalOptions="Center" />
+        <!-- Your page content here -->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Hello, World!"
+                   FontSize="32"
+                   TextColor="White" />
+        </StackLayout>
+    </Grid>
 
 </ContentPage>

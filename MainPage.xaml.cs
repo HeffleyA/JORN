@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿//using Microsoft.UI.Xaml.Media.Imaging;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+//using Windows.System;
 
 namespace JORN
 {
@@ -10,6 +12,9 @@ namespace JORN
         public MainPage()
         {
             InitializeComponent();
+
+            //ImagePaint paint = new ImagePaint();
+            //paint.Image = new BitmapImage(new Uri(""))
         }
     }
 
