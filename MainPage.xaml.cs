@@ -1,20 +1,30 @@
-﻿using System.ComponentModel;
+﻿using Mscc.GenerativeAI;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Mscc.GenerativeAI;
 
 namespace JORN
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
+
+            jorn.Source = ImageSource.FromUri(new Uri(SetBackground().Result));
+        }
+
+        public static async Task<string> SetBackground()
+        {
+            string prompt = $"Generate an image of a JORN named JORN. Take any liberties to create " +
+                $"JORN as you see fit. JORN is love, JORN is life.";
+
+            var image = await ChatModel.GenerateImage(prompt);
+
+            return image.Url;
         }
     }
 
-    class ChatModel : INotifyPropertyChanged
+    partial class ChatModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,7 +53,7 @@ namespace JORN
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        public async Task<string> GenerateResponse(string prompt)
+        public static async Task<string> GenerateResponse(string prompt)
         {
             var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";
             
@@ -54,7 +64,18 @@ namespace JORN
             return response.Text;
         }
 
-        public async Task<string> AskAndReply(string prompt)
+        public static async Task<Mscc.GenerativeAI.Image> GenerateImage(string prompt)
+        {
+            var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";
+
+            var googleAI = new GoogleAI(apiKey: apiKey);
+            var model = googleAI.ImageGenerationModel(model: Model.Gemini25Flash);
+
+            var response = await model.GenerateContent(prompt);
+            return response.Predictions.First();
+        }
+
+        public static async Task<string> AskAndReply(string prompt)
         {
             prompt = $"Reply as if you are a JORN named JORN. JORN is love, JORN is life.\n\n{prompt}";
 
