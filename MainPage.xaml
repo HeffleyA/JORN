@@ -3,21 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:JORN"
              x:Class="JORN.MainPage"
-             Title="JORNPage"
              x:DataType="local:ChatModel">
 
     <Grid>
-        <Image Source="jorn.png"
+        <Image x:Name="jorn"
                Aspect="AspectFill"
                Opacity="0.3" />
-        <!-- Optional opacity -->
 
-        <!-- Your page content here -->
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="Hello, World!"
-                   FontSize="32"
-                   TextColor="White" />
-        </StackLayout>
+        <ScrollView HorizontalOptions="Center">
+            <StackLayout>
+                <BoxView Color="Aqua"
+                         HeightRequest="96"
+                         WidthRequest="96"
+                         VerticalOptions="Center"/>
+            </StackLayout>
+        </ScrollView>
+
+        <Entry x:Name="jornInput"
+               Placeholder="Enter your message or question for JORN"
+               WidthRequest="300"
+               HorizontalOptions="Fill"
+               VerticalOptions="End"/>
     </Grid>
+
 
 </ContentPage>
