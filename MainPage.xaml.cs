@@ -1,6 +1,4 @@
 ﻿using Mscc.GenerativeAI;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace JORN
 {
@@ -9,50 +7,51 @@ namespace JORN
         public MainPage()
         {
             InitializeComponent();
-
-            jorn.Source = ImageSource.FromUri(new Uri(SetBackground().Result));
         }
 
-        public static async Task<string> SetBackground()
-        {
-            string prompt = $"Generate an image of a JORN named JORN. Take any liberties to create " +
-                $"JORN as you see fit. JORN is love, JORN is life.";
+        //private async void MainPage_Loaded(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        // Await the URL string
+        //        string url = await SetBackground();
 
-            var image = await ChatModel.GenerateImage(prompt);
+        //        // Use the URL to set the ImageSource
+        //        jorn.Source = ImageSource.FromUri(new Uri(url));
+        //        System.Diagnostics.Debug.WriteLine($"Image successfully loaded from URL: {url}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // 💡 CRITICAL: Log the InnerException and details
+        //        System.Diagnostics.Debug.WriteLine($"--- API CALL FAILED ---");
+        //        System.Diagnostics.Debug.WriteLine($"Message: {ex.Message}");
 
-            return image.Url;
-        }
+        //        // Look for the specific error from the Google SDK here
+        //        if (ex.InnerException != null)
+        //        {
+        //            System.Diagnostics.Debug.WriteLine($"Inner Message: {ex.InnerException.Message}");
+        //            System.Diagnostics.Debug.WriteLine($"Inner Type: {ex.InnerException.GetType().Name}");
+        //        }
+        //        System.Diagnostics.Debug.WriteLine($"-------------------------");
+
+        //        // You can also display an alert to the user
+        //        await DisplayAlert("API Error", "Image loading failed. See debug output for details.", "OK");
+        //    }
+        //}
+
+        //public static async Task<string> SetBackground()
+        //{
+        //    string prompt = $"Generate an image of a JORN named JORN. Take any liberties to create " +
+        //        $"JORN as you see fit. JORN is love, JORN is life.";
+
+        //    var image = await ChatModel.GenerateImage(prompt);
+
+        //    return image.Url;
+        //}
     }
 
-    partial class ChatModel : INotifyPropertyChanged
+    partial class ChatModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private string outputText;
-
-        public string OutputText
-        {
-            get => outputText;
-            set
-            {
-                if (outputText != value)
-                {
-                    outputText = value;
-                    OnPropertyChanged(); // reports this property
-                }
-            }
-        }
-
-        public ChatModel()
-        {
-            OutputText = "";
-
-            //establish api as connection
-        }
-
-        public void OnPropertyChanged([CallerMemberName] string name = "") =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
         public static async Task<string> GenerateResponse(string prompt)
         {
             var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";
@@ -64,16 +63,36 @@ namespace JORN
             return response.Text;
         }
 
-        public static async Task<Mscc.GenerativeAI.Image> GenerateImage(string prompt)
-        {
-            var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";
+        //public static async Task<Mscc.GenerativeAI.Image> GenerateImage(string prompt)
+        //{
+        //    var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI"; // Use your actual key
 
-            var googleAI = new GoogleAI(apiKey: apiKey);
-            var model = googleAI.ImageGenerationModel(model: Model.Gemini25Flash);
+        //    try
+        //    {
+        //        var vertexAI = new VertexAI(apiKey: apiKey);
 
-            var response = await model.GenerateContent(prompt);
-            return response.Predictions.First();
-        }
+        //        // 💡 CRITICAL: Use ImageGenerationModel to create an image
+        //        var imageResponse = vertexAI.ImageGenerationModel(model: Model.);
+
+        //        // Generate the content (this is now the image generation call)
+        //        var response = await model.GenerateContent(prompt);
+
+        //        // Return the first image prediction
+        //        return response.Predictions.First();
+        //    }
+        //    catch (Mscc.GenerativeAI.GeminiApiException apiEx)
+        //    {
+        //        // Keep the robust logging for any future API issues
+        //        System.Diagnostics.Debug.WriteLine($"!!! REAL API ERROR CAUGHT !!!");
+        //        System.Diagnostics.Debug.WriteLine($"Error Data: {apiEx.Data}");
+        //        throw new InvalidOperationException($"Gemini API Failed: {apiEx.Message}", apiEx);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine($"!!! GENERAL EXCEPTION IN GENERATEIMAGE !!!");
+        //        throw;
+        //    }
+        //}
 
         public static async Task<string> AskAndReply(string prompt)
         {

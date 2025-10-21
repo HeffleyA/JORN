@@ -22,6 +22,8 @@
         <Entry x:Name="jornInput"
                Placeholder="Enter your message or question for JORN"
                WidthRequest="300"
+               BackgroundColor="SlateGray"
+               TextColor="White"
                HorizontalOptions="Fill"
                VerticalOptions="End"/>
     </Grid>
