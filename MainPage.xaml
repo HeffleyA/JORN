@@ -6,16 +6,28 @@
              x:DataType="local:ChatModel">
 
     <Grid>
+        <Label x:Name="jornLabel"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               WidthRequest="500"
+               Text="JORN Chat"
+               TextDecorations="Underline"
+               FontFamily="Insomnia"
+               FontSize="Large"
+               TextColor="Red"
+               FontAttributes="Italic,Bold"
+               HorizontalTextAlignment="Center"/>
+
         <Image x:Name="jorn"
                Aspect="AspectFill"
                Opacity="0.3" />
 
-        <ScrollView HorizontalOptions="Center">
+        <ScrollView HorizontalOptions="Center"
+                    VerticalOptions="Center">
             <StackLayout>
                 <BoxView Color="Aqua"
                          HeightRequest="96"
-                         WidthRequest="96"
-                         VerticalOptions="Center"/>
+                         WidthRequest="96"/>
             </StackLayout>
         </ScrollView>
 
@@ -25,6 +37,5 @@
                HorizontalOptions="Fill"
                VerticalOptions="End"/>
     </Grid>
-
 
 </ContentPage>

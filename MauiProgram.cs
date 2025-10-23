@@ -22,6 +22,7 @@ namespace JORN
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Insomnia.ttf", "Insomnia");
                 });
 
             //Console.WriteLine("🤖 AI is generating your 'Hello, World!' message...");
