@@ -1,4 +1,5 @@
 ﻿using Mscc.GenerativeAI;
+using OpenAI.Images;
 
 namespace JORN
 {
@@ -9,45 +10,45 @@ namespace JORN
             InitializeComponent();
         }
 
-        //private async void MainPage_Loaded(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        // Await the URL string
-        //        string url = await SetBackground();
+        private async void MainPage_Loaded(object sender, EventArgs e)
+        {
+            try
+            {
+                // Await the URL string
+                string url = await SetBackground();
 
-        //        // Use the URL to set the ImageSource
-        //        jorn.Source = ImageSource.FromUri(new Uri(url));
-        //        System.Diagnostics.Debug.WriteLine($"Image successfully loaded from URL: {url}");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // 💡 CRITICAL: Log the InnerException and details
-        //        System.Diagnostics.Debug.WriteLine($"--- API CALL FAILED ---");
-        //        System.Diagnostics.Debug.WriteLine($"Message: {ex.Message}");
+                // Use the URL to set the ImageSource
+                jorn.Source = ImageSource.FromUri(new Uri(url));
+                System.Diagnostics.Debug.WriteLine($"Image successfully loaded from URL: {url}");
+            }
+            catch (Exception ex)
+            {
+                // 💡 CRITICAL: Log the InnerException and details
+                System.Diagnostics.Debug.WriteLine($"--- API CALL FAILED ---");
+                System.Diagnostics.Debug.WriteLine($"Message: {ex.Message}");
 
-        //        // Look for the specific error from the Google SDK here
-        //        if (ex.InnerException != null)
-        //        {
-        //            System.Diagnostics.Debug.WriteLine($"Inner Message: {ex.InnerException.Message}");
-        //            System.Diagnostics.Debug.WriteLine($"Inner Type: {ex.InnerException.GetType().Name}");
-        //        }
-        //        System.Diagnostics.Debug.WriteLine($"-------------------------");
+                // Look for the specific error from the Google SDK here
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Inner Message: {ex.InnerException.Message}");
+                    System.Diagnostics.Debug.WriteLine($"Inner Type: {ex.InnerException.GetType().Name}");
+                }
+                System.Diagnostics.Debug.WriteLine($"-------------------------");
 
-        //        // You can also display an alert to the user
-        //        await DisplayAlert("API Error", "Image loading failed. See debug output for details.", "OK");
-        //    }
-        //}
+                // You can also display an alert to the user
+                await DisplayAlert("API Error", "Image loading failed. See debug output for details.", "OK");
+            }
+        }
 
-        //public static async Task<string> SetBackground()
-        //{
-        //    string prompt = $"Generate an image of a JORN named JORN. Take any liberties to create " +
-        //        $"JORN as you see fit. JORN is love, JORN is life.";
+        public static async Task<string> SetBackground()
+        {
+            string prompt = $"Generate an image of a JORN named JORN. Take any liberties to create " +
+                $"JORN as you see fit. JORN is love, JORN is life.";
 
-        //    var image = await ChatModel.GenerateImage(prompt);
+            var image = await ChatModel.GenerateImage(prompt);
 
-        //    return image.Url;
-        //}
+            return image.ImageUri.ToString();
+        }
     }
 
     partial class ChatModel
@@ -55,7 +56,7 @@ namespace JORN
         public static async Task<string> GenerateResponse(string prompt)
         {
             var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";
-            
+
             var googleAI = new GoogleAI(apiKey: apiKey);
             var model = googleAI.GenerativeModel(model: Model.Gemini25Flash);
 
@@ -63,36 +64,24 @@ namespace JORN
             return response.Text;
         }
 
-        //public static async Task<Mscc.GenerativeAI.Image> GenerateImage(string prompt)
-        //{
-        //    var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI"; // Use your actual key
+        public static async Task<OpenAI.Images.GeneratedImage> GenerateImage(string prompt)
+        {
+            var apiKey = "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";
+            
+            // Create the OpenAI ImageClient
+            ImageClient client = new ImageClient("dall-e-3", apiKey);
 
-        //    try
-        //    {
-        //        var vertexAI = new VertexAI(apiKey: apiKey);
+            // Generate the image
+            OpenAI.Images.GeneratedImage generatedImage = await client.GenerateImageAsync(prompt,
+                new ImageGenerationOptions
+                {
+                    Size = GeneratedImageSize.W1024xH1024
+                });
 
-        //        // 💡 CRITICAL: Use ImageGenerationModel to create an image
-        //        var imageResponse = vertexAI.ImageGenerationModel(model: Model.);
+            Console.WriteLine($"The generated image is ready at:\n{generatedImage.ImageUri}");
 
-        //        // Generate the content (this is now the image generation call)
-        //        var response = await model.GenerateContent(prompt);
-
-        //        // Return the first image prediction
-        //        return response.Predictions.First();
-        //    }
-        //    catch (Mscc.GenerativeAI.GeminiApiException apiEx)
-        //    {
-        //        // Keep the robust logging for any future API issues
-        //        System.Diagnostics.Debug.WriteLine($"!!! REAL API ERROR CAUGHT !!!");
-        //        System.Diagnostics.Debug.WriteLine($"Error Data: {apiEx.Data}");
-        //        throw new InvalidOperationException($"Gemini API Failed: {apiEx.Message}", apiEx);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"!!! GENERAL EXCEPTION IN GENERATEIMAGE !!!");
-        //        throw;
-        //    }
-        //}
+            return generatedImage;
+        }
 
         public static async Task<string> AskAndReply(string prompt)
         {

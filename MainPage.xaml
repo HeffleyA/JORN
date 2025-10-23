@@ -7,6 +7,7 @@
 
     <Grid>
         <Image x:Name="jorn"
+               Source="jorn.png"
                Aspect="AspectFill"
                Opacity="0.3" />
 
