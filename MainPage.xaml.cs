@@ -53,6 +53,8 @@ namespace JORN
 
     partial class ChatModel
     {
+
+
         public static async Task<string> GenerateResponse(string prompt)
         {
             var apiKey = "AIzaSyD3yh-ziLIlRcKGZ5e58515gp7-uUTDAhI";

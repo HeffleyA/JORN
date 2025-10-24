@@ -6,6 +6,10 @@
              x:DataType="local:ChatModel">
 
     <Grid>
+        <Image x:Name="jorn"
+               Source="jorn.png"
+               Aspect="AspectFill"/>
+        
         <Label x:Name="jornLabel"
                HorizontalOptions="Center"
                VerticalOptions="Start"
@@ -18,18 +22,10 @@
                FontAttributes="Italic,Bold"
                HorizontalTextAlignment="Center"/>
 
-        <Image x:Name="jorn"
-               Source="jorn.png"
-               Aspect="AspectFill"
-               Opacity="0.3" />
 
         <ScrollView HorizontalOptions="Center"
                     VerticalOptions="Center">
-            <StackLayout>
-                <BoxView Color="Aqua"
-                         HeightRequest="96"
-                         WidthRequest="96"/>
-            </StackLayout>
+
         </ScrollView>
 
         <Entry x:Name="jornInput"
