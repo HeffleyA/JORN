@@ -5,15 +5,15 @@
              x:Class="JORN.MainPage"
              x:DataType="local:ChatModel">
 
-    <Grid>
+    <Grid
+        HorizontalOptions="Fill">
         <Image x:Name="jorn"
                Source="jorn.png"
+               BackgroundColor="Black"
                Aspect="AspectFill"/>
-        
         <Label x:Name="jornLabel"
                HorizontalOptions="Center"
                VerticalOptions="Start"
-               WidthRequest="500"
                Text="JORN Chat"
                TextDecorations="Underline"
                FontFamily="Insomnia"
@@ -22,19 +22,24 @@
                FontAttributes="Italic,Bold"
                HorizontalTextAlignment="Center"/>
 
-
-        <ScrollView HorizontalOptions="Center"
+        <ScrollView HorizontalOptions="Fill"
                     VerticalOptions="Center">
-
+            <StackLayout x:Name="textSection">
+            </StackLayout>
         </ScrollView>
 
-        <Entry x:Name="jornInput"
+        <HorizontalStackLayout 
+            VerticalOptions="End"
+            HorizontalOptions="Center">
+            <Entry x:Name="jornInput"
                Placeholder="Enter your message or question for JORN"
-               WidthRequest="300"
-               BackgroundColor="SlateGray"
-               TextColor="White"
-               HorizontalOptions="Fill"
-               VerticalOptions="End"/>
+               BackgroundColor="DarkSlateGray"
+                   HorizontalOptions="Fill"
+               TextColor="White" />
+            <Button ImageSource="send.png"
+                    BackgroundColor="Black"
+                    Clicked="SendMessage" />
+        </HorizontalStackLayout>
     </Grid>
 
 </ContentPage>
