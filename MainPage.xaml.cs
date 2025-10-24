@@ -52,9 +52,16 @@ namespace JORN
 
         async void SendMessage(object sender, EventArgs args)
         {
-            textSection.Children.Add(new Label { Text = jornInput.Text });
+            textSection.Children.Add(new Label
+            {
+                Text = jornInput.Text,
+                BackgroundColor = Color.FromRgba("FFFFFF77")
+            });
 
-            textSection.Add(new Label { Text = await ChatModel.AskAndReply(jornInput.Text) });
+            textSection.Add(new Label { 
+                Text = await ChatModel.AskAndReply(jornInput.Text),
+                BackgroundColor = Color.FromRgba("FFFFFF77")
+            });
         }
     }
 
