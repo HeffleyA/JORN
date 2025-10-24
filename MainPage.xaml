@@ -30,11 +30,12 @@
 
         <HorizontalStackLayout 
             VerticalOptions="End"
-            HorizontalOptions="Center">
+            HorizontalOptions="Fill">
             <Entry x:Name="jornInput"
+               WidthRequest="335"
                Placeholder="Enter your message or question for JORN"
                BackgroundColor="DarkSlateGray"
-                   HorizontalOptions="Fill"
+               HorizontalOptions="Fill"
                TextColor="White" />
             <Button ImageSource="send.png"
                     BackgroundColor="Black"
