@@ -49,6 +49,13 @@ namespace JORN
 
             return image.ImageUri.ToString();
         }
+
+        async void SendMessage(object sender, EventArgs args)
+        {
+            textSection.Children.Add(new Label { Text = jornInput.Text });
+
+            textSection.Add(new Label { Text = await ChatModel.AskAndReply(jornInput.Text) });
+        }
     }
 
     partial class ChatModel
