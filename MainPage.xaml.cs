@@ -55,12 +55,14 @@ namespace JORN
             textSection.Children.Add(new Label
             {
                 Text = jornInput.Text,
-                BackgroundColor = Color.FromRgba("FFFFFF77")
+                BackgroundColor = Color.FromRgba("FFFFFF77"),
+                HorizontalOptions = LayoutOptions.End
             });
 
             textSection.Add(new Label { 
                 Text = await ChatModel.AskAndReply(jornInput.Text),
-                BackgroundColor = Color.FromRgba("FFFFFF77")
+                BackgroundColor = Color.FromRgba("FFFFFF77"),
+                HorizontalOptions = LayoutOptions.Start
             });
         }
     }
