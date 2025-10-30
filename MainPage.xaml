@@ -24,7 +24,7 @@
 
         <ScrollView HorizontalOptions="Center"
                     VerticalOptions="Center"
-                    Margin="50, 50, 50, 50">
+                    Margin="100, 100, 100, 100">
             <StackLayout x:Name="textSection">
             </StackLayout>
         </ScrollView>

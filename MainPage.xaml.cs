@@ -55,14 +55,26 @@ namespace JORN
             textSection.Children.Add(new Label
             {
                 Text = jornInput.Text,
-                BackgroundColor = Color.FromRgba("FFFFFF77"),
+                BackgroundColor = Color.FromRgba("1003FF77"),
+                MaximumWidthRequest = textSection.Width * 0.75,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Fill
             });
 
-            textSection.Add(new Label { 
-                Text = await ChatModel.AskAndReply(jornInput.Text),
-                BackgroundColor = Color.FromRgba("FFFFFF77"),
+            jornInput.Text = "";
+
+            string prompt = "";
+            var labelCount = (textSection.Children.Count < 10) ? textSection.Children.Count : textSection.Children.Count - 10;
+            for (int i = textSection.Children.Count; i > labelCount; i--)
+            {
+                prompt = $"{((Label)textSection.Children.ElementAt(i)).Text}\n\n{prompt}";
+            }
+
+            textSection.Add(new Label
+            {
+                Text = await ChatModel.AskAndReply(prompt),
+                BackgroundColor = Color.FromRgba("FF80AC77"),
+                MaximumWidthRequest = textSection.Width * 0.75,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Fill
             });
@@ -86,8 +98,8 @@ namespace JORN
 
         public static async Task<OpenAI.Images.GeneratedImage> GenerateImage(string prompt)
         {
-            var apiKey = "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";
-            
+            var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+
             // Create the OpenAI ImageClient
             ImageClient client = new ImageClient("dall-e-3", apiKey);
 
@@ -105,7 +117,8 @@ namespace JORN
 
         public static async Task<string> AskAndReply(string prompt)
         {
-            prompt = $"Reply as if you are a JORN named JORN. JORN is love, JORN is life.\n\n{prompt}";
+            /// JORN is love, JORN is life.
+            prompt = $"Reply as if you are a JORN named JORN.\n\n{prompt}";
 
             return await GenerateResponse(prompt);
         }
