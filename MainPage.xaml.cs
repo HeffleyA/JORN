@@ -120,8 +120,7 @@ namespace JORN
 
         public static async Task<string> AskAndReply(string prompt)
         {
-            /// JORN is love, JORN is life.
-            prompt = $"Reply as if you are a JORN named JORN.\n\n{prompt}";
+            prompt = $"Reply as if you are a JORN named JORN. JORN is love, JORN is life.\n\n{prompt}";
 
             return await GenerateResponse(prompt);
         }
