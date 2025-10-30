@@ -1,5 +1,6 @@
 ﻿using Mscc.GenerativeAI;
 using OpenAI.Images;
+using System.Net.Http;
 
 namespace JORN
 {
@@ -18,7 +19,7 @@ namespace JORN
                 string url = await SetBackground();
 
                 // Use the URL to set the ImageSource
-                jorn.Source = ImageSource.FromUri(new Uri(url));
+                //jorn.Source = ImageSource.FromUri(new Uri(url));
                 System.Diagnostics.Debug.WriteLine($"Image successfully loaded from URL: {url}");
             }
             catch (Exception ex)
@@ -39,6 +40,8 @@ namespace JORN
                 await DisplayAlert("API Error", "Image loading failed. See debug output for details.", "OK");
             }
         }
+
+       
 
         public static async Task<string> SetBackground()
         {
