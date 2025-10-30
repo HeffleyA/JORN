@@ -95,6 +95,13 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="Mscc.GenerativeAI" Version="2.8.17" />
 		<PackageReference Include="OpenAI" Version="2.5.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="App.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
