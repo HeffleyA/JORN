@@ -1,6 +1,5 @@
 ﻿using Mscc.GenerativeAI;
 using OpenAI.Images;
-using System.Net.Http;
 
 namespace JORN
 {
@@ -60,12 +59,11 @@ namespace JORN
                 Text = jornInput.Text,
                 BackgroundColor = Color.FromRgba("1003FFCC"),
                 TextColor = Color.FromRgb(255, 255, 255),
-                MaximumWidthRequest = textSection.Width * 0.75,
+                MaximumWidthRequest = textSection.Width * 0.75f,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Fill
             });
 
-            jornInput.Text = "";
 
             string prompt = "";
             var labelCount = (textSection.Children.Count < 10) ? textSection.Children.Count : textSection.Children.Count - 10;
@@ -73,13 +71,15 @@ namespace JORN
             {
                 prompt = $"{((Label)textSection.Children.ElementAt(i)).Text}\n\n{prompt}";
             }
+            prompt += jornInput.Text;
+            jornInput.Text = "";
 
             textSection.Add(new Label
             {
                 Text = await ChatModel.AskAndReply(prompt),
                 BackgroundColor = Color.FromRgba("FF80ACCC"),
                 TextColor = Color.FromRgb(255, 255, 255),
-                MaximumWidthRequest = textSection.Width * 0.75,
+                MaximumWidthRequest = textSection.Width * 0.75f,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Fill
             });
