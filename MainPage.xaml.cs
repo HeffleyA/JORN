@@ -58,7 +58,8 @@ namespace JORN
             textSection.Children.Add(new Label
             {
                 Text = jornInput.Text,
-                BackgroundColor = Color.FromRgba("1003FF77"),
+                BackgroundColor = Color.FromRgba("1003FFCC"),
+                TextColor = Color.FromRgb(255, 255, 255),
                 MaximumWidthRequest = textSection.Width * 0.75,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Fill
@@ -76,7 +77,8 @@ namespace JORN
             textSection.Add(new Label
             {
                 Text = await ChatModel.AskAndReply(prompt),
-                BackgroundColor = Color.FromRgba("FF80AC77"),
+                BackgroundColor = Color.FromRgba("FF80ACCC"),
+                TextColor = Color.FromRgb(255, 255, 255),
                 MaximumWidthRequest = textSection.Width * 0.75,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Fill
@@ -86,7 +88,6 @@ namespace JORN
 
     partial class ChatModel
     {
-
 
         public static async Task<string> GenerateResponse(string prompt)
         {
