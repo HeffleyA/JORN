@@ -9,7 +9,7 @@
     <Grid
         HorizontalOptions="Center">
         <Image x:Name="jorn"
-               Source="jorn.png"
+               Source="jornangry.png"
                BackgroundColor="Black"
                Aspect="AspectFill" />
         <Label x:Name="jornLabel"

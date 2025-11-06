@@ -8,9 +8,20 @@ namespace JORN
         public MainPage()
         {
             InitializeComponent();
+
+            var rand = new Random();
+            var jornId = rand.Next(1000000);
+
+            if (jornId == 0) jorn.Source = ImageSource.FromFile("jornangry.png");
+            else if (jornId >= 1 && jornId < 11) jorn.Source = ImageSource.FromFile("jornadrian.png");
+            else if (jornId >= 11 && jornId < 111) jorn.Source = ImageSource.FromFile("jornhorn.png");
+            else if (jornId >= 111 && jornId < 1111) jorn.Source = ImageSource.FromFile("jornbason.png");
+            else if (jornId >= 1111 && jornId < 3111) jorn.Source = ImageSource.FromFile("jornjohn.png");
+            else if (jornId >= 3111 && jornId < 13111) jorn.Source = ImageSource.FromFile("jorngreg.png");
+            else jorn.Source = ImageSource.FromFile($"jorn{rand.Next(12)}.png");
         }
 
-        private async void MainPage_Loaded(object sender, EventArgs e)
+        /*private async void MainPage_Loaded(object sender, EventArgs e)
         {
             try
             {
@@ -20,6 +31,8 @@ namespace JORN
                 // Use the URL to set the ImageSource
                 //jorn.Source = ImageSource.FromUri(new Uri(url));
                 System.Diagnostics.Debug.WriteLine($"Image successfully loaded from URL: {url}");
+
+                jorn.Source = ImageSource.FromUri(new Uri(url));
             }
             catch (Exception ex)
             {
@@ -38,9 +51,7 @@ namespace JORN
                 // You can also display an alert to the user
                 await DisplayAlert("API Error", "Image loading failed. See debug output for details.", "OK");
             }
-        }
-
-       
+        }*/   
 
         public static async Task<string> SetBackground()
         {
